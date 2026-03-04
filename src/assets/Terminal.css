@@ -1,0 +1,14 @@
+.terminal-container {
+    margin: 20px;
+}
+
+.history-block {
+    padding-bottom: 1em;
+}
+
+input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+}

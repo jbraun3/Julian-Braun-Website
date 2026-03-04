@@ -1,42 +1,128 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+:root {
+  --old-plastic: #E6E3DB;
+  --win-95-gray: #C8C8C8;
+  --dusty-crt: #B2D5D6;
+  --floppy-pink: #F4B8C7;
+  --terra-peach: #E2B0A4;
+  --charcoal-ink: #2B2B2B;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f7f6f4;
+  opacity: 1;
+  background-image:  linear-gradient(#d7d7d7 1px, transparent 1px), linear-gradient(to right, #d7d7d7 1px, #f7f6f4 1px);
+  background-size: 20px 20px;
+  color: var(--charcoal-ink);
+  font-family: "JetBrains Mono", monospace;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.dashboard-layout {
+  display: grid;
+  /* Left Nav: 320px | Center Screen: 1fr (flexible) | Right Buttons: 80px */
+  grid-template-columns: 450px 1fr 100px;
+  gap: 20px;
+  width: 95vw;
+  max-width: 1500px;
+  height: 90vh;
+  max-height: 850px;
+  padding: 20px;
 }
 
-.card {
-  padding: 2em;
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top left, #d48fa0 50%, #ffd4df 50%);
+  border-radius: 20px 20px 80px 80px / 20px 20px 40px 40px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.4);
 }
 
-.read-the-docs {
-  color: #888;
+.gameboy-base {
+  margin: 12px;
+  height: 100%;
+  padding:px;
+  background-color: #F4B8C7;
+  width: calc(100% - 20px);
+  border-radius: 10px 10px 70px 70px / 10px 10px 30px 30px;
+  border: 2px dotted rgba(0, 0, 0, 0.164);
+}
+
+.gameboy-screen {
+  margin: 20px;
+  width: calc(100% - 43px);
+  background-color: #E6E3DB;
+  border-radius: 10px;
+  height: 45%;
+  border: 1px solid rgba(0,0,0,0.3);
+}
+
+.center-screen {
+  background: linear-gradient(to top left, #646464 50%, var(--win-95-gray) 50%);
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 var(--charcoal-ink),
+              inset 2px 2px 0 var(--old-plastic),
+              inset -2px -2px 0 rgba(0,0,0,0.2);
+  display: flex;
+  border: 1px solid rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.monitor-bezel {
+  width: 98%;
+  height: 90%;
+  background-color: var(--old-plastic);
+  border: 2px dotted rgba(0,0,0,0.5);
+
+  border-radius: 4px;
+  padding: 40px; 
+  display: flex;
+}
+
+.bezel-shadow {
+  width: 100%;
+  height: 97%;
+  background: linear-gradient(to top left, var(--win-95-gray) 50%, var(--charcoal-ink) 50%);
+  padding: 12px; 
+  border-radius: 10px;
+
+  display: flex;
+  border: 1px solid rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+
+.monitor-screen {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-image: linear-gradient(135deg, 
+                    #FBD1E8 10%, 
+                    #D8C9FA 30%, 
+                    #C4F0FD 50%, 
+                    #FAF8B8 70%); /* Holographic gradient based on reference */
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.2); 
+  border: 1px solid #a1a1a1;
+  overflow: auto; /* For scrolling views */
+  color: var(--charcoal-ink); /* Font color for screen text */
+}
+
+.hardware-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--old-plastic);
 }

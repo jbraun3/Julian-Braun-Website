@@ -1,5 +1,26 @@
+:root {
+  --old-plastic: #E6E3DB;
+  --win-95-gray: #C8C8C8;
+  --dusty-crt: #B2D5D6;
+  --floppy-pink: #F4B8C7;
+  --terra-peach: #E2B0A4;
+  --charcoal-ink: #2B2B2B;
+}
+
 .terminal-container {
     margin: 20px;
+    padding: 10px;
+    height: 100%;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    box-sizing: border-box;
+    border: solid 5px black;
+    background-color: #2B2B2B;
+    color: #B2D5D6;
+    text-shadow: 0 0 10px #0073e6;
+               
 }
 
 .history-block {
@@ -11,4 +32,29 @@ input {
     border: none;
     color: inherit;
     outline: none;
+    font-family: "JetBrains Mono", monospace;
+    width: 90%;
+    font-size: medium;
+    caret-color: currentColor;
+    text-shadow: 0 0 5px #0073e6;
+}
+
+::-webkit-input-placeholder {
+    text-shadow: none;
+}
+
+.terminal-history {
+    flex-grow: 1; /* Tells history to steal all remaining vertical space */
+    overflow-y: auto; /* Traps the text and adds the scroll mechanism here */
+    min-height: 0; /* Protects this box from blowing out too */
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-history::-webkit-scrollbar {
+  display: none;
+}
+.terminal-history {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }

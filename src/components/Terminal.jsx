@@ -61,6 +61,7 @@ export default function Terminal() {
                     </div>
                 </div>  
                 ))}  
+                <div ref={bottomRef} />
             </div>
 
             <div className="terminal-input-line">
@@ -74,11 +75,9 @@ export default function Terminal() {
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     className="terminal-input"
-                    placeholder="Type a command..."
+                    placeholder="Type help for list of commands"
                 />
             </div>
-
-            <div ref={bottomRef} />
 
         </div>
     );

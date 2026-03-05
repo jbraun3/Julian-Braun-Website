@@ -12,10 +12,10 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f7f6f4;
-  opacity: 1;
-  background-image:  linear-gradient(#d7d7d7 1px, transparent 1px), linear-gradient(to right, #d7d7d7 1px, #f7f6f4 1px);
-  background-size: 20px 20px;
+    background-color: #e0eaeb;
+    opacity: 1;
+    background: radial-gradient(circle, transparent 20%, #e0eaeb 20%, #e0eaeb 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e0eaeb 20%, #e0eaeb 80%, transparent 80%, transparent) 30px 30px, linear-gradient(#B2D5D6 2.4000000000000004px, transparent 2.4000000000000004px) 0 -1.2000000000000002px, linear-gradient(90deg, #B2D5D6 2.4000000000000004px, #e0eaeb 2.4000000000000004px) -1.2000000000000002px 0;
+    background-size: 60px 60px, 60px 60px, 30px 30px, 30px 30px;
   color: var(--charcoal-ink);
   font-family: "JetBrains Mono", monospace;
   height: 100vh;
@@ -44,44 +44,56 @@ body {
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0,0,0,0.4);
+  min-height: 0; 
+  overflow: hidden;
+  box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.3);
 }
 
 .gameboy-base {
-  margin: 12px;
+  margin: 10px;
   height: 100%;
-  padding:px;
   background-color: #F4B8C7;
   width: calc(100% - 20px);
-  border-radius: 10px 10px 70px 70px / 10px 10px 30px 30px;
+  border-radius: 15px 15px 70px 70px / 15px 15px 30px 30px;
   border: 2px dotted rgba(0, 0, 0, 0.164);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; 
+  overflow: hidden;
 }
 
 .gameboy-screen {
   margin: 20px;
   width: calc(100% - 43px);
-  background-color: #E6E3DB;
+  background-color: #e8e8e8;
   border-radius: 10px;
-  height: 45%;
   border: 1px solid rgba(0,0,0,0.3);
+
+  flex: 0 0 45%; 
+  display: flex;
+  flex-direction: column;
+  min-height: 0; 
+  overflow: hidden;
 }
 
 .center-screen {
   background: linear-gradient(to top left, #646464 50%, var(--win-95-gray) 50%);
   padding: 12px;
   border-radius: 10px;
-  box-shadow: 2px 2px 0 var(--charcoal-ink),
+  box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.3),
               inset 2px 2px 0 var(--old-plastic),
               inset -2px -2px 0 rgba(0,0,0,0.2);
   display: flex;
   border: 1px solid rgba(0,0,0,0.4);
   justify-content: center;
   align-items: center;
+  
 }
 
 .monitor-bezel {
   width: 98%;
   height: 90%;
-  background-color: var(--old-plastic);
+  background-color: #e8e8e8;
   border: 2px dotted rgba(0,0,0,0.5);
 
   border-radius: 4px;
@@ -124,5 +136,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--old-plastic);
+  background-color: #e8e8e8;
+  box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.3);
 }

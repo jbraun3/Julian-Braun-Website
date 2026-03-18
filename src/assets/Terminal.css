@@ -55,6 +55,10 @@ input {
   display: none;
 }
 .terminal-history {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.output-line {
+    white-space: pre-line;
 }

@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import Terminal from './components/Terminal.jsx'
+import Resume from './routes/resume.jsx';
+import SideButtons from './components/SideButtons.jsx';
 import './assets/Global.css'
 import './assets/Terminal.css'
+import { Route, Routes } from 'react-router-dom';
+
+import HomePage from './routes/HomePage.jsx';
 
 export default function App() {
   return (
@@ -12,10 +17,17 @@ export default function App() {
         <div className="gameboy-base">
           <div className="gameboy-screen">
             <Terminal />
-            {/* Navigation links will go here */}
           </div>
         </div>
-        {/* We will add the UI toggle and physical D-pad styling here later */}
+        
+        <div className="gmaeboy-buttons">
+          <button className="D-pad up"></button>
+          <button className="D-pad down"></button>
+          <button className="D-pad left"></button>
+          <button className="D-pad right"></button>
+          <button className="action-button A"></button>
+          <button className="action-button B"></button>
+        </div>
       </div>
 
       {/* CENTER COLUMN: Main Monitor */}
@@ -23,16 +35,17 @@ export default function App() {
         <div className="monitor-bezel">
           <div className="bezel-shadow">
             <div className="monitor-screen">
-              <h1>page</h1>
-              {/* Content (Home, Projects, Resume) will render here */}
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/resume" element={<Resume />} />
+              </Routes>
             </div>
           </div>
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Hardware Links */}
       <div className="hardware-buttons">
-        
+        <SideButtons />
       </div>
 
     </div>

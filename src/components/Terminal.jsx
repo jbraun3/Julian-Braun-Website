@@ -23,7 +23,7 @@ export default function Terminal() {
             if (input.trim() === '') return;
             
             let command = input.trim().toLowerCase();
-            let currentOutput = `Command not found: ${input}. Type 'help' for a list of commands.`;
+            let currentOutput = `${input}: Command not found. Type 'help' for a list of commands.`;
 
             // general commands
             if (command === 'help') {
@@ -54,7 +54,7 @@ export default function Terminal() {
                 } else if ((currentDirectory === '~/projects' || currentDirectory === '~/resume') && (command === 'cd ..' || command === 'cd ../')) {
                     setCurrentDirectory('~');
                 } else {
-                    currentOutput = `${input} No such file or directory.`;
+                    currentOutput = `${input}: No such file or directory.`;
                 }
             }
 

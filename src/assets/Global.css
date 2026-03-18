@@ -27,7 +27,7 @@ body {
 .dashboard-layout {
   display: grid;
   /* Left Nav: 320px | Center Screen: 1fr (flexible) | Right Buttons: 80px */
-  grid-template-columns: 450px 1fr 100px;
+  grid-template-columns: 450px 1fr 115px;
   gap: 20px;
   width: 95vw;
   max-width: 1500px;
@@ -140,8 +140,8 @@ body {
   box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px; 
   padding: 12px;
+  border: 1px solid rgba(0,0,0,0.4);
   border-top: 2px solid white;
   border-left: 2px solid white;
-  /* border-bottom: 2px solid #646464;
-  border-right: 2px solid #646464; */
+  background: linear-gradient(to top left, var(--win-95-gray) 30%,#e8e8e8 60%);
 }

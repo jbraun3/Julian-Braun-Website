@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Terminal() {
+export default function Terminal({ isBooted }) {
     const navigate = useNavigate();
 // Refs and States
     const [input, setInput] = useState('');
@@ -87,9 +87,9 @@ export default function Terminal() {
 
 
     return (
-        <div className="terminal-container" onClick={focusInput}>
+        <div className={`terminal-container ${isBooted ? '' : 'screen-off'}`} onClick={focusInput}>
 
-            <div className="terminal-history">
+            <div className={`terminal-history ${isBooted ? '' : 'terminal-off'}`}>
                 {history.map((entry, index) => (
                     
                 <div key={index} className="history-block">

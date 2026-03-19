@@ -33,11 +33,14 @@
     width: 100%;
 }
 
-.side-button {
+.circle-button {
     width: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
     box-shadow: 0 5px 0 0 #2B2B2B;
+}
+
+.side-button {
     border-top: 2px solid rgba(255,255,255,0.4);
     border-left: 2px solid rgba(255,255,255,0.4);
     border-bottom: 2px solid rgba(0,0,0,0.4);

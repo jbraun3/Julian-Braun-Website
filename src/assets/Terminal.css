@@ -8,10 +8,10 @@
 }
 
 .terminal-container {
-    margin: 20px;
+    margin: 25px;
     padding: 10px;
     height: 100%;
-    width: calc(100% - 40px);
+    width: auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -61,4 +61,8 @@ input {
 
 .output-line {
     white-space: pre-line;
+}
+
+.terminal-off {
+    display: none;
 }

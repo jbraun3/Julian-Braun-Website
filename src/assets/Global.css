@@ -9,6 +9,11 @@
   --charcoal-ink: #2B2B2B;
 }
 
+::selection {
+  background-color: #b189e5c2;
+  color: #2B2B2B;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -63,8 +68,8 @@ body {
 }
 
 .gameboy-screen {
-  margin: 20px;
-  width: calc(100% - 43px);
+  margin: 15px;
+  width: auto;
   background-color: #e8e8e8;
   border-radius: 10px;
   border: 1px solid rgba(0,0,0,0.3);
@@ -74,7 +79,37 @@ body {
   flex-direction: column;
   min-height: 0; 
   overflow: hidden;
+  border-bottom-left-radius: 50% 20px;
+  border-bottom-right-radius: 50% 20px;
+  padding-bottom: 20px;
 }
+
+.gameboy-buttons {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+  margin-top: 15px;
+}
+
+.D-pad {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(2px 5px 3px rgba(0,0,0,0.15));
+}
+
+.D-pad {
+    background-color: #fdfdfd; /* Crisp off-white */
+    box-shadow: inset -1px -1px 3px rgba(0,0,0,0.2), 
+                inset 1px 1px 3px rgba(255,255,255,1);
+    position: absolute;
+    border: none;
+    cursor: pointer;
+}
+
+
+
 
 .center-screen {
   background: linear-gradient(to top left, #646464 50%, var(--win-95-gray) 50%);
@@ -114,6 +149,10 @@ body {
   align-items: center;
 }
 
+.screen-off {
+  background: #111 !important; /* Overrides the gradient */
+  background-image: none !important;
+}
 
 .monitor-screen {
   flex-grow: 1;
@@ -144,4 +183,115 @@ body {
   border-top: 2px solid white;
   border-left: 2px solid white;
   background: linear-gradient(to top left, var(--win-95-gray) 30%,#e8e8e8 60%);
+}
+
+.boot-screen {
+  width: 100%;
+  height: 100%;
+  background-color: #2B2B2B;
+  color: #B2D5D6;
+  text-shadow: 0 0 10px #0073e6;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+  border-radius: 4px; /* Matches the inner screen radius */
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 10px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0% {
+        background-color: #c79285;
+        box-shadow: 0 5px 0 0 #2B2B2B, 0 0 5px rgba(239, 154, 154, 0.4);
+    }
+    50% {
+        background-color: #E2B0A4;
+        box-shadow: 0 5px 0 0 #2B2B2B, 0 0 25px rgba(239, 154, 154, 1); /* Peak brightness */
+    }
+    100% {
+        background-color: #c79285;
+        box-shadow: 0 5px 0 0 #2B2B2B, 0 0 5px rgba(239, 154, 154, 0.4);
+    }
+}
+
+.power-button {
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #E2B0A4;
+    position: relative;
+    z-index: 1000;
+}
+
+.power-off {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.power-on {
+    box-shadow: 0 5px 0 0 #2B2B2B, 0 0 25px rgba(239, 154, 154, 1); 
+}
+
+.ambient-darkness {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75); /* 75% dark room */
+    z-index: 999; /* Sits right underneath the power button (1000) */
+    opacity: 0;
+    pointer-events: none; /* Lets you click through when power is on */
+    transition: opacity 0.6s ease-in-out; 
+}
+
+.ambient-darkness.darkness-active {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.power-button-container {
+    position: relative;
+    z-index: 1001; /* Ensures the whole container pops above the darkness */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.power-tooltip {
+    position: absolute;
+    /* Pushes the tooltip to the left of the button */
+    right: 120%; 
+    top: 25%;
+    transform: translateY(-50%);
+    
+    background-color: #B2D5D6; /* A bright retro yellow to stand out in the dark */
+    color: var(--charcoal-ink);
+    padding: 10px 15px;
+    border: 2px solid var(--charcoal-ink);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
+    pointer-events: none; /* Ensures the tooltip doesn't accidentally block clicks */
+    
+    /* The floating animation */
+    animation: float-point 2s infinite ease-in-out;
+}
+
+/* Animates the bubble sliding left and right */
+@keyframes float-point {
+    0%, 100% { transform: translate(0, -50%); }
+    50% { transform: translate(-8px, -50%); }
 }

@@ -63,7 +63,7 @@ export default function Terminal({ isBooted }) {
                 currentOutput = "";
                 if ((currentDirectory === '~/resume' && command === 'open resume.pdf') || (currentDirectory === '~' && command === 'open resume/resume.pdf')) {
                     currentOutput = "Opening resume.pdf...";
-                    window.open('./public/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank');
+                    window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank');
                 } else if ((currentDirectory === '~/resume' && command === 'open resume_page.jsx') || (currentDirectory === '~' && command === 'open resume/resume_page.jsx')) {
                     currentOutput = "Opening resume_page.jsx...";
                     navigate('/resume');

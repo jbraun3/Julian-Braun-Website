@@ -36,21 +36,85 @@ export default function App() {
           <div className="gameboy-base">
             <div className="gameboy-screen">
               <Terminal isBooted={isBooted} />
+              <p className="gameboy-title">JulesBoy</p>
             </div>
           
             <div className="gameboy-buttons">
-
-              <div className="D-pad-buttons">
-                <div className="D-pad center"></div>
-                <button className="D-pad up"></button>
-                <button className="D-pad down"></button>
-                <button className="D-pad left"></button>
-                <button className="D-pad right"></button>
+              {/* Complex nested structure for the 3D D-pad */}
+              <div className="left">
+                <div className="croix">
+                  <div className="line top"></div>
+                  <div className="line"></div>
+                  <div className="line"></div>
+                  <div className="line"></div>
+                  <div className="middle"></div>
+                </div>
               </div>
-              
-              <div className="action-buttons">
-                <button className="action-button A"></button>
-                <button className="action-button B"></button>
+
+              {/* Action buttons (B is traditionally first/lower on Gameboy) */}
+              <div className="right">
+                <button>B</button>
+                <button>A</button>
+              </div>
+
+              {/* Hyphenated class name and added spans for the neon text labels */}
+              <div className="small-buttons">
+                <button><span>SELECT</span></button>
+                <button><span>START</span></button>
+              </div>
+
+              {/* Your existing sound grid */}
+              <div className="sound-grid">
+                <div className="dot t"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot t"></div>
+
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+
+                <div className="dot t"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot"></div>
+                <div className="dot b"></div>
+                <div className="dot t"></div>
               </div>
             </div>
           </div>

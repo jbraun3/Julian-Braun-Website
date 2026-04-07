@@ -38,7 +38,7 @@ export default function Terminal({ isBooted }) {
                 if (currentDirectory === '~') {
                     currentOutput = "projects/ \n resume/";
                 } else if (currentDirectory === '~/projects') {
-                    currentOutput = "project1/ \n project2/ \n project3/";
+                    currentOutput = "husky_winter_sports_website.jsx \n More projects coming soon ദ്ദി（• ˕ •マ.ᐟ";
                 } else if (currentDirectory === '~/resume') {
                     currentOutput = "resume.pdf \n resume_page.jsx";
                 }
@@ -67,6 +67,9 @@ export default function Terminal({ isBooted }) {
                 } else if ((currentDirectory === '~/resume' && command === 'open resume_page.jsx') || (currentDirectory === '~' && command === 'open resume/resume_page.jsx')) {
                     currentOutput = "Opening resume_page.jsx...";
                     navigate('/resume');
+                } else if (currentDirectory === '~/projects' && command === 'open husky_winter_sports_website.jsx' || (currentDirectory === '~' && command === 'open projects/husky_winter_sports_website.jsx')) {
+                    currentOutput = "Opening husky_winter_sports_website.jsx...";
+                    window.open("https://www.huskywintersports.org/", '_blank');
                 } else {
                     currentOutput = `${input} No such file to open.`;
                 }

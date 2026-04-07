@@ -37,7 +37,7 @@ body {
   width: 95vw;
   max-width: 1500px;
   height: 90vh;
-  max-height: 850px;
+  max-height: 800px;
   padding: 20px;
 }
 
@@ -45,7 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   background: linear-gradient(to top left, #d48fa0 50%, #ffd4df 50%);
-  border-radius: 20px 20px 80px 80px / 20px 20px 40px 40px;
+  border-radius: 20px 20px 30% 30% / 20px 20px 5% 5%;
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(0,0,0,0.4);
@@ -59,7 +59,7 @@ body {
   height: 100%;
   background-color: #F4B8C7;
   width: calc(100% - 20px);
-  border-radius: 15px 15px 70px 70px / 15px 15px 30px 30px;
+  border-radius: 15px 15px 30% 30% / 15px 15px 5% 5%;
   border: 2px dotted rgba(0, 0, 0, 0.164);
   display: flex;
   flex-direction: column;
@@ -72,44 +72,235 @@ body {
   width: auto;
   background-color: #e8e8e8;
   border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.3);
-
-  flex: 0 0 45%; 
+  flex: 0 0 47%; 
   display: flex;
   flex-direction: column;
   min-height: 0; 
   overflow: hidden;
-  border-bottom-left-radius: 50% 20px;
-  border-bottom-right-radius: 50% 20px;
-  padding-bottom: 20px;
+  border-radius: 3% 3% 40% 40%/3% 3% 6.5% 6.5%;
+  box-shadow: inset 1px 2px 3px -1px rgba(255, 255, 255, .6),
+      0 1px 5px -1px rgba(0, 0, 0, .5);
+}
+
+.gameboy-title {
+  text-align: center;
+  color: #a1a1a1;
 }
 
 .gameboy-buttons {
+  /* Replaces your previous flex container and the .buttons-row */
   flex-grow: 1;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; /* Allows Start/Select to drop to the bottom row */
   align-items: center;
-  padding: 0 35px;
-  margin-top: 15px;
-}
+  justify-content: space-between;
+  padding: 0 40px 40px 40px;
+  position: relative; /* Crucial for positioning the sound grid */
 
-.D-pad {
-  width: 90px;
-  height: 90px;
-  filter: drop-shadow(2px 5px 3px rgba(0,0,0,0.15));
-}
+  .left {
+    width: 45%;
 
-.D-pad {
-    background-color: #fdfdfd; /* Crisp off-white */
-    box-shadow: inset -1px -1px 3px rgba(0,0,0,0.2), 
-                inset 1px 1px 3px rgba(255,255,255,1);
+    .croix {
+      color: black;
+      position: relative;
+      aspect-ratio: 1/1;
+      width: 71%;
+      font-size: 1.2rem;
+
+      .line {
+        position: absolute;
+        width: 33%;
+        height: 33%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 10% 0 0 10%;
+        cursor: pointer;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Mapped to your palette */
+        background: #e8e8e8; 
+        text-shadow: 1px 2px 1px rgba(41, 41, 41, 0.35);
+
+        &:nth-child(1) { /* top */
+          border-radius: 10% 10% 0 0;
+          width: 33%;
+          height: 33%;
+          top: 2%;
+          left: 50%;
+          transform: translateX(-50%);
+
+          box-shadow: inset 3px 5px 5px -1px rgba(255, 255, 255, .5),
+          inset -3px 0 3px -1px rgba(0, 0, 0, .7),
+          1px 1px 1px 2px rgba(0, 0, 0, .4),
+          2.5px 5px 5px 1px rgba(0, 0, 0, .7);
+        }
+
+        &:nth-child(2) { /* right */
+          border-radius: 0 10% 10% 0;
+          width: 33%;
+          height: 33%;
+          top: 50%;
+          right: 2%;
+          transform: translateY(-50%);
+
+          box-shadow: inset -1px 3px 3px -1px rgba(255, 255, 255, .5),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, .7),
+          1px 1px 1px 2px rgba(0, 0, 0, .4),
+          2.5px 5px 5px 1px rgba(0, 0, 0, .7);
+        }
+
+        &:nth-child(3) { /* bottom */
+          border-radius: 0 0 10% 10%;
+          width: 33%;
+          height: 33%;
+          top: 64%;
+          left: 50%;
+          transform: translateX(-50%);
+
+          box-shadow: inset 3px 0 3px -1px rgba(255, 255, 255, .5),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, .7),
+          1px 1px 1px 2px rgba(0, 0, 0, .4),
+          2.5px 5px 5px 1px rgba(0, 0, 0, .7);
+        }
+
+        &:nth-child(4) { /* left */
+          left: 2%;
+
+          box-shadow: inset 3px 3px 3px -1px rgba(255, 255, 255, .5),
+          inset 0 -3px 5px -1px rgba(0, 0, 0, .7),
+          1px 1px 1px 2px rgba(0, 0, 0, .4),
+          2.5px 5px 5px 1px rgba(0, 0, 0, .7);
+        }
+      }
+
+      .middle {
+        z-index: 1;
+        position: absolute;
+        width: 32%;
+        height: 32%;
+        top: 34%;
+        left: 34%;
+        background: #e8e8e8;
+        box-shadow: 3px 0 3px rgba(232, 232, 232, 1),
+        -3px 0 3px rgba(232, 232, 232, 1), 
+        -1px 8px 4px rgba(232, 232, 232, 1),
+        0 -3px 3px rgba(232, 232, 232, 1);
+      }
+    }
+  }
+
+  .right {
+    width: 50%;
+    text-align: end;
+    transform: translateY(20%);
+
+    button {
+      all: unset;
+
+      background: #e8e8e8;
+      text-shadow: 1px 2px 1px rgb(255 255 255 / 50%);
+      box-shadow: inset 3px 5px 5px -1px rgba(255, 255, 255, 1),
+      inset -3px -3px 5px -1px rgba(0, 0, 0, .6),
+      1px 1px 1px 2px rgba(0, 0, 0, .6),
+      2.5px 5px 5px 1px rgba(0, 0, 0, .5);
+
+      cursor: pointer;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #c0c0c0; /* Subtle contrast for A/B text */
+      padding-top: 1%;
+      padding-left: 3%;
+      box-sizing: border-box;
+      aspect-ratio: 1/1;
+      width: 32%;
+      border-radius: 50%;
+
+      &:nth-child(2) {
+        transform: translateY(-55%);
+        margin-left: 13%;
+      }
+    }
+  }
+
+  .small-buttons {
+    text-align: center;
+    width: 100%; /* Spans full width to push to the bottom center */
+    margin-top: -15px; 
+
+    button {
+      all: unset;
+
+      box-sizing: border-box;
+      box-shadow: inset 1px 5px 7px -1px rgba(255, 255, 255, 1),
+      inset -3px -3px 5px -1px rgba(0, 0, 0, .7),
+      0px 0px 1px 1px rgba(0, 0, 0, .4),
+      2.5px 4px 5px -1px rgba(0, 0, 0, .5);
+
+      cursor: pointer;
+      position: relative;
+      font-size: 1rem;
+      display: inline-block;
+      width: 12%;
+      margin: 0 4%;
+      aspect-ratio: 4 / 2;
+      background: #e8e8e8;
+      border-radius: 30%;
+
+      span {
+        /* Swapped neon orange for your palette's peach */
+        color: rgba(0, 0, 0, .2); 
+        position: absolute;
+        display: inline-block;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 40%);
+        font-family: "JetBrains Mono", monospace;
+        font-weight: bold;
+
+        @media screen and (max-width: 700px) {
+          font-size: .85rem;
+        }
+      }
+    }
+  }
+
+  .sound-grid {
+    width: 25%;
+    aspect-ratio: 1 / 1;
     position: absolute;
-    border: none;
-    cursor: pointer;
+    right: 3%;
+    bottom: 4%;
+    transform: skew(-2deg, -7deg) rotatez(-5deg);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+
+    .dot {
+      border-radius: 50%;
+      display: inline-block;
+      height: 5px;
+      width: 5px;
+      
+      /* Redesigned to look like actual indents/holes in your pink shell */
+      background: rgba(0, 0, 0, 0.15); 
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4),
+                  0.5px 0.5px 0px rgba(255, 255, 255, 0.4);
+
+      &.b {
+        background: rgba(0, 0, 0, 0.3);
+        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6);
+      }
+
+      &.t {
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+  }
 }
-
-
-
 
 .center-screen {
   background: linear-gradient(to top left, #646464 50%, var(--win-95-gray) 50%);

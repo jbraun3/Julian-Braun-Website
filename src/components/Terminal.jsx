@@ -6,19 +6,40 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Terminal({ isBooted }) {
     const navigate = useNavigate();
+
 // Refs and States
     const [input, setInput] = useState('');
     const [history, setHistory] = useState([]);
     const [currentDirectory, setCurrentDirectory] = useState('~');
     const bottomRef = useRef(null);
     const inputRef = useRef(null);
-    // functions
+    const historyCounter = useRef(0); 
+    
+// functions
     const handleInputChange = (e) => {
         setInput(e.target.value);
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (history.length === 0) return;
+            if (historyCounter.current < history.length) {
+                historyCounter.current += 1;
+            }
+            setInput(history[history.length - historyCounter.current].command);
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (history.length === 0) return;
+            if (historyCounter.current > 1) {
+                historyCounter.current -= 1;
+                setInput(history[history.length - historyCounter.current].command);
+            } else if (historyCounter.current === 1) {
+                historyCounter.current = 0;
+                setInput('');
+            }
+
+        } else if (e.key === 'Enter') {
             e.preventDefault();
             if (input.trim() === '') return;
             
@@ -30,6 +51,7 @@ export default function Terminal({ isBooted }) {
                 currentOutput = "Available commands: help, clear, cd, open, ls";
             } else if (command === 'clear') {
                 setHistory([]);
+                historyCounter.current = 0;
                 setInput('');
                 return;
 
@@ -38,7 +60,7 @@ export default function Terminal({ isBooted }) {
                 if (currentDirectory === '~') {
                     currentOutput = "projects/ \n resume/";
                 } else if (currentDirectory === '~/projects') {
-                    currentOutput = "husky_winter_sports_website.jsx \n More projects coming soon ദ്ദി（• ˕ •マ.ᐟ";
+                    currentOutput = "husky_winter_sports_website.jsx \n WSDOT_Project.jsx \n More projects coming soon ദ്ദി（• ˕ •マ.ᐟ";
                 } else if (currentDirectory === '~/resume') {
                     currentOutput = "resume.pdf \n resume_page.jsx";
                 }
@@ -61,21 +83,26 @@ export default function Terminal({ isBooted }) {
             // open handling
             else if (command.startsWith('open')) {
                 currentOutput = "";
+                
                 if ((currentDirectory === '~/resume' && command === 'open resume.pdf') || (currentDirectory === '~' && command === 'open resume/resume.pdf')) {
                     currentOutput = "Opening resume.pdf...";
                     window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank');
                 } else if ((currentDirectory === '~/resume' && command === 'open resume_page.jsx') || (currentDirectory === '~' && command === 'open resume/resume_page.jsx')) {
                     currentOutput = "Opening resume_page.jsx...";
                     navigate('/resume');
-                } else if (currentDirectory === '~/projects' && command === 'open husky_winter_sports_website.jsx' || (currentDirectory === '~' && command === 'open projects/husky_winter_sports_website.jsx')) {
+                } else if ((currentDirectory === '~/projects' && command === 'open husky_winter_sports_website.jsx') || (currentDirectory === '~' && command === 'open projects/husky_winter_sports_website.jsx')) {
                     currentOutput = "Opening husky_winter_sports_website.jsx...";
                     window.open("https://www.huskywintersports.org/", '_blank');
+                } else if ((currentDirectory === '~/projects' && command === 'open wsdot_project.jsx') || (currentDirectory === '~' && command === 'open projects/wsdot_project.jsx')) {
+                    currentOutput = "Opening WSDOT_Project.jsx...";
+                    navigate('/wsdot');
                 } else {
                     currentOutput = `${input} No such file to open.`;
                 }
             }
 
-            setHistory([...history, { command: input, output: currentOutput }]);
+            setHistory([...history, { command: input, output: currentOutput, directory: currentDirectory }]);
+            historyCounter.current = 0;
             setInput('');
         }
     };
@@ -98,7 +125,7 @@ export default function Terminal({ isBooted }) {
                 <div key={index} className="history-block">
 
                     <div className="command-line">
-                        <div className="prompt">julian@portfolio ~</div> 
+                        <div className="prompt">julian@portfolio ~{entry.directory}</div> 
                         <span className="command">$ {entry.command}</span>
                     </div>
 

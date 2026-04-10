@@ -5,7 +5,8 @@ import './assets/Global.css'
 import './assets/Terminal.css'
 
 import HomePage from './routes/HomePage.jsx';
-import Resume from './routes/resume.jsx';
+import Resume from './routes/Resume.jsx';
+import WSDOT_Project from './routes/WSDOT_Project.jsx';
 
 import Terminal from './components/Terminal.jsx'
 import SideButtons from './components/SideButtons.jsx';
@@ -14,6 +15,8 @@ import BootSequence from './components/BootSequence.jsx';
 export default function App() {
   const [isPowerOn, setIsPowerOn] = useState(false);
   const [isBooted, setIsBooted] = useState(false);
+
+  const isSafari = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome");
 
   const handlePowerButton = () => {
     if (!isPowerOn) {
@@ -28,7 +31,10 @@ export default function App() {
 
   return (
     <>
-      <div className={`ambient-darkness ${!isPowerOn ? 'darkness-active' : ''}`}></div>
+      {!isSafari && (
+        <div className={`ambient-darkness ${!isPowerOn ? 'darkness-active' : ''}`}></div>
+      )}
+
       <div className="dashboard-layout">
         
         {/* LEFT COLUMN: Navigation / Gameboy */}
@@ -134,6 +140,7 @@ export default function App() {
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/resume" element={<Resume />} />
+                    <Route path="/wsdot" element={<WSDOT_Project />} />
                   </Routes>
                 )}
 

@@ -19,7 +19,6 @@ export default function BootSequence({ onComplete }) {
         "Loading OS...",
         "Starting graphic interface...",
         "",
-        "",
     ];
 
     useEffect(() => {
@@ -33,12 +32,11 @@ export default function BootSequence({ onComplete }) {
             // When we reach the end of the text array
             if (currentLine === bootText.length) {
                 clearInterval(bootInterval);
-                // Wait 1.5 seconds on the final screen before launching the OS
                 setTimeout(() => {
                     onComplete();
                 }, 1500); 
             }
-        }, 400); // 400ms delay between each line
+        }, 400); 
 
         // Cleanup function
         return () => clearInterval(bootInterval);

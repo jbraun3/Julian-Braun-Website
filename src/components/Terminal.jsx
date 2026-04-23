@@ -7,13 +7,94 @@ import { useNavigate } from 'react-router-dom';
 export default function Terminal({ isBooted }) {
     const navigate = useNavigate();
 
+    // Virtual File System Definition
+    const fileSystem = {
+        '~': {
+            type: 'dir',
+            children: {
+                'projects': {
+                    type: 'dir',
+                    children: {
+                        'husky_winter_sports_website.jsx': { 
+                            type: 'file', 
+                            action: () => window.open("https://www.huskywintersports.org/", '_blank'),
+                            desc: "Opening husky_winter_sports_website.jsx..."
+                        },
+                        'wsdot_project.jsx': { 
+                            type: 'file', 
+                            action: () => navigate('/wsdot'),
+                            desc: "Opening WSDOT_Project.jsx..."
+                        }
+                    }
+                },
+                'resume': {
+                    type: 'dir',
+                    children: {
+                        'resume.pdf': { 
+                            type: 'file', 
+                            action: () => window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank'),
+                            desc: "Opening resume.pdf..."
+                        },
+                        'resume_page.jsx': { 
+                            type: 'file', 
+                            action: () => navigate('/resume'),
+                            desc: "Opening resume_page.jsx..."
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // Helper to find a node in the VFS from a path array
+    const findNode = (pathArray) => {
+        let current = fileSystem['~'];
+        for (let i = 1; i < pathArray.length; i++) {
+            if (current.children && current.children[pathArray[i]]) {
+                current = current.children[pathArray[i]];
+            } else {
+                return null;
+            }
+        }
+        return current;
+    };
+
+    // Helper to resolve a path string (relative or absolute) into a path array
+    const resolvePath = (currentPath, pathStr) => {
+        if (!pathStr || pathStr === '.') return currentPath;
+        if (pathStr === '~') return ['~'];
+        if (pathStr === '/') return ['~'];
+        
+        const parts = pathStr.split('/').filter(p => p.length > 0);
+        let newPath = (pathStr.startsWith('~') || pathStr.startsWith('/')) ? ['~'] : [...currentPath];
+        
+        if (pathStr.startsWith('~')) parts.shift();
+
+        for (const part of parts) {
+            if (part === '.') continue;
+            if (part === '..') {
+                if (newPath.length > 1) newPath.pop();
+            } else {
+                const currentNode = findNode(newPath);
+                if (currentNode && currentNode.type === 'dir' && currentNode.children[part]) {
+                    newPath.push(part);
+                } else {
+                    return null;
+                }
+            }
+        }
+        return newPath;
+    };
+
 // Refs and States
     const [input, setInput] = useState('');
     const [history, setHistory] = useState([]);
-    const [currentDirectory, setCurrentDirectory] = useState('~');
+    const [currentPathArray, setCurrentPathArray] = useState(['~']);
     const bottomRef = useRef(null);
     const inputRef = useRef(null);
     const historyCounter = useRef(0); 
+
+    const currentDirectory = currentPathArray.join('/');
     
 // functions
     const handleInputChange = (e) => {
@@ -41,67 +122,83 @@ export default function Terminal({ isBooted }) {
 
         } else if (e.key === 'Enter') {
             e.preventDefault();
-            if (input.trim() === '') return;
+            const trimmedInput = input.trim();
+            if (trimmedInput === '') return;
             
-            let command = input.trim().toLowerCase();
-            let currentOutput = `${input}: Command not found. Type 'help' for a list of commands.`;
+            const parts = trimmedInput.split(/\s+/);
+            const cmd = parts[0].toLowerCase();
+            const args = parts.slice(1);
+            let currentOutput = "";
+            let nextPathArray = [...currentPathArray];
 
             // general commands
-            if (command === 'help') {
+            if (cmd === 'help') {
                 currentOutput = "Available commands: help, clear, cd, open, ls";
-            } else if (command === 'clear') {
+            } else if (cmd === 'clear') {
                 setHistory([]);
                 historyCounter.current = 0;
                 setInput('');
                 return;
 
             // ls handling
-            } else if (command === 'ls') {
-                if (currentDirectory === '~') {
-                    currentOutput = "projects/ \n resume/";
-                } else if (currentDirectory === '~/projects') {
-                    currentOutput = "husky_winter_sports_website.jsx \n WSDOT_Project.jsx \n More projects coming soon ദ്ദി（• ˕ •マ.ᐟ";
-                } else if (currentDirectory === '~/resume') {
-                    currentOutput = "resume.pdf \n resume_page.jsx";
+            } else if (cmd === 'ls') {
+                const targetPath = resolvePath(currentPathArray, args[0] || '.');
+                const node = targetPath ? findNode(targetPath) : null;
+                if (node) {
+                    if (node.type === 'dir') {
+                        currentOutput = Object.keys(node.children)
+                            .map(name => node.children[name].type === 'dir' ? name + '/' : name)
+                            .join(' \n ');
+                    } else {
+                        currentOutput = args[0];
+                    }
+                } else {
+                    currentOutput = `ls: ${args[0]}: No such file or directory`;
                 }
-                
 
             // cd handling
-            } else if (command.startsWith('cd')) {
-                currentOutput = "";
-                if (currentDirectory === '~' && (command === 'cd projects' || command === 'cd projects/')) {
-                    setCurrentDirectory(`${currentDirectory}/projects`);
-                } else if (currentDirectory === '~' && (command === 'cd resume' || command === 'cd resume/')) {
-                    setCurrentDirectory(`${currentDirectory}/resume`);
-                } else if ((currentDirectory === '~/projects' || currentDirectory === '~/resume') && (command === 'cd ..' || command === 'cd ../')) {
-                    setCurrentDirectory('~');
+            } else if (cmd === 'cd') {
+                if (!args[0] || args[0] === '~') {
+                    nextPathArray = ['~'];
+                    setCurrentPathArray(['~']);
                 } else {
-                    currentOutput = `${input}: No such file or directory.`;
+                    const targetPath = resolvePath(currentPathArray, args[0]);
+                    const node = targetPath ? findNode(targetPath) : null;
+                    if (node && node.type === 'dir') {
+                        nextPathArray = targetPath;
+                        setCurrentPathArray(targetPath);
+                    } else if (node && node.type === 'file') {
+                        currentOutput = `cd: ${args[0]}: Not a directory`;
+                    } else {
+                        currentOutput = `cd: ${args[0]}: No such file or directory`;
+                    }
                 }
-            }
 
             // open handling
-            else if (command.startsWith('open')) {
-                currentOutput = "";
-                
-                if ((currentDirectory === '~/resume' && command === 'open resume.pdf') || (currentDirectory === '~' && command === 'open resume/resume.pdf')) {
-                    currentOutput = "Opening resume.pdf...";
-                    window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank');
-                } else if ((currentDirectory === '~/resume' && command === 'open resume_page.jsx') || (currentDirectory === '~' && command === 'open resume/resume_page.jsx')) {
-                    currentOutput = "Opening resume_page.jsx...";
-                    navigate('/resume');
-                } else if ((currentDirectory === '~/projects' && command === 'open husky_winter_sports_website.jsx') || (currentDirectory === '~' && command === 'open projects/husky_winter_sports_website.jsx')) {
-                    currentOutput = "Opening husky_winter_sports_website.jsx...";
-                    window.open("https://www.huskywintersports.org/", '_blank');
-                } else if ((currentDirectory === '~/projects' && command === 'open wsdot_project.jsx') || (currentDirectory === '~' && command === 'open projects/wsdot_project.jsx')) {
-                    currentOutput = "Opening WSDOT_Project.jsx...";
-                    navigate('/wsdot');
+            } else if (cmd === 'open') {
+                if (!args[0]) {
+                    currentOutput = "open: missing file operand";
                 } else {
-                    currentOutput = `${input} No such file to open.`;
+                    const targetPath = resolvePath(currentPathArray, args[0]);
+                    const node = targetPath ? findNode(targetPath) : null;
+                    if (node && node.type === 'file') {
+                        currentOutput = node.desc;
+                        node.action();
+                    } else if (node && node.type === 'dir') {
+                        currentOutput = `open: ${args[0]}: Is a directory`;
+                    } else {
+                        currentOutput = `open: ${args[0]}: No such file`;
+                    }
                 }
+            } else {
+                currentOutput = `${cmd}: Command not found. Type 'help' for a list of commands.`;
             }
 
-            setHistory([...history, { command: input, output: currentOutput, directory: currentDirectory }]);
+            setHistory([...history, { 
+                command: input, 
+                output: currentOutput, 
+                directory: currentPathArray.join('/') 
+            }]);
             historyCounter.current = 0;
             setInput('');
         }
@@ -125,7 +222,7 @@ export default function Terminal({ isBooted }) {
                 <div key={index} className="history-block">
 
                     <div className="command-line">
-                        <div className="prompt">julian@portfolio ~{entry.directory}</div> 
+                        <div className="prompt">julian@portfolio {entry.directory}</div> 
                         <span className="command">$ {entry.command}</span>
                     </div>
 

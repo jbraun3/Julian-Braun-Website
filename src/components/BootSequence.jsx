@@ -7,14 +7,14 @@ export default function BootSequence({ onComplete }) {
     // The sequence of text to display. 
     const bootText = [
         "J-BIOS(C) 2026 Modular BIOS v4.51PG, An Energy Star Ally",
-        "Copyright (C) 1984-2026, Portfolio Software, Inc.",
+        "Copyright (C) 2025-2026, Portfolio Software, Inc.",
         "",
         "Main Processor : UW-PHI Core, 3.2 GHz", 
         "Memory Test : 32768K OK",
         "",
         "Initializing JBRAUN3 Root Directory...",
-        "Mounting Modified-DEP Protocol...",
-        "Connecting to AWS Cloud Infrastructure... OK",
+        // "Mounting Modified-DEP Protocol...",
+        // "Connecting to AWS Cloud Infrastructure... OK",
         "",
         "Loading OS...",
         "Starting graphic interface...",

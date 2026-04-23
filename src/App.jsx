@@ -18,6 +18,12 @@ export default function App() {
 
   const isSafari = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome");
 
+  const speedUpBoot = () => {
+    if (isPowerOn && !isBooted) {
+      setIsBooted(true);
+    }
+  }
+
   const handlePowerButton = () => {
     if (!isPowerOn) {
       setIsPowerOn(true);
@@ -35,7 +41,7 @@ export default function App() {
         <div className={`ambient-darkness ${!isPowerOn ? 'darkness-active' : ''}`}></div>
       )}
 
-      <div className="dashboard-layout">
+      <div className="dashboard-layout" onClick={speedUpBoot}>
         
         {/* LEFT COLUMN: Navigation / Gameboy */}
         <div className="nav-panel">

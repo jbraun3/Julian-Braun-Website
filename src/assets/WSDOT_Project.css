@@ -1,25 +1,55 @@
 .wsdot-project-page-container {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    -ms-overflow-style: none;  
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.wsdot-project-page-container::-webkit-scrollbar {
+  display: none;
 }
 
 .wsdot-project-header {
     background: radial-gradient(
      ellipse 350% 120% at 30% 100%,   
-    #ffffff 20%, #a3bbac 30%, #5f806c 40%, #466d51 50%, #233e2a 60%, #05130c 70%);
+    #ffffff 20%, #a3bbae 30%, #5f806c 40%, #466d55 50%, #233e30 60%, #05130d 70%);
     color: #ffffff;
-    font-family: 'Inter', -apple-system, sans-serif;
     padding: 5%;
-    box-sizing: border-box;
+    padding-bottom: 300px;
     overflow: hidden;
+    min-height: 400px;
+    position: relative;
+}
+
+.wsdot-project-header::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    background-image: url("../../public/images/topographic.webp");
+    background-size: cover;
+    background-position: center;
+    filter: invert(100%);
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wsdot-project-header h1 {
+    font-size: 3.5rem;
+    font-weight: 550;
+    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 .wsdot-project-header p {
     font-size: 0.85rem;
     padding-bottom: 20px;
+    width: 60%;
 }
 
 .logo-and-links {
@@ -30,10 +60,7 @@
     width: 100%;
 }
 
-/* In your component's CSS file, e.g., WSDOT_Project.css */
-
 .wsdot-logo-image {
-  /* Set a manageable size for the logo */
     width: 130px; /* Reduced from 200px for better proportion */
     height: auto;
     max-width: 100%; /* Ensure it doesn't exceed container */
@@ -54,4 +81,253 @@
     padding: 10px 20px;
     border-radius: 50px;
     transition: all 0.2s ease-in-out;
+    width: fit-content;
+}
+
+.wsdot-content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.wsdot-content-section h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 500;
+    text-align: center;
+    width: 90%;
+    margin-bottom: 0;
+}
+
+.wsdot-content-section h3 {
+    font-size: 1.5rem;
+    color: black;
+    text-align: start;
+    margin: 0;
+    font-weight: 400;
+}
+
+.wsdot-content-section > p {
+    color: #5a5a5a;
+    text-align: center;
+    width: 75%;
+    font-weight: lighter;
+}
+
+.content-block {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.content-block p {
+    color: #5a5a5a;
+}
+
+.iPhone-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    width: 100%;
+    margin-top: -430px; 
+    gap: 0; /* Removing gap to use margins instead */
+}
+
+.phoneFront {
+    background-color: #000;
+    border-radius: 50px;
+    position: relative;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin: 0 -20px; /* Pulls the scaled iPhones closer together */
+}
+
+.phoneFront:nth-child(1) {
+    transform: scale(0.65) translateY(20%);
+    margin-left: 10px;
+}
+
+.phoneFront:nth-child(2) {
+    transform: scale(0.65) translateY(0);
+}
+
+.phoneFront:nth-child(3) {
+    transform: scale(0.65) translateY(-20%);
+    margin-right: 10px;
+}
+
+.frame {
+    border: 3px solid #bbb5b3;
+    border-radius: 50px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3),
+                -3px -3px 8px rgba(255, 255, 255, 0.2);;
+}
+
+.antenas {
+    .tt {
+        background-color: #75726f;
+        position: absolute;
+        width: 8px;
+        height: 3.5px;
+        top: 0;
+        right: 60px;
+    }
+    .tr {
+        background-color: #75726f;
+        position: absolute;
+        width: 3.5px;
+        height: 8px;
+        top: 60px;
+        right: -1px;
+    }
+    .tl {
+        background-color: #75726f;
+        position: absolute;
+        width: 3.5px;
+        height: 8px;
+        top: 60px;
+        left: -1px;
+    }
+    .bb {
+        background-color: #75726f;
+        position: absolute;
+        width: 8px;
+        height: 3.5px;
+        bottom: -1.5px;
+        left: 60px;
+    }
+    .bl {
+        background-color: #75726f;
+        position: absolute;
+        width: 3.5px;
+        height: 8px;
+        bottom: 60px;
+        left: -1px;
+    }
+    .br {
+        background-color: #75726f;
+        position: absolute;
+        width: 3.5px;
+        height: 8px;
+        bottom: 60px;
+        right: -1px;
+    }
+}
+
+  .keys {
+    .silent {
+      width: 3.5px;
+      height: 28px;
+      border-top: 2px solid #eae0d9;
+      border-bottom: 2px solid #eae0d9;
+      position: absolute;
+      top: 105px;
+      left: -4.5px;
+      background: linear-gradient(90deg, #888, #555);
+    }
+    .volt {
+      width: 3.5px;
+      height: 50px;
+      border-top: 2px solid #eae0d9;
+      border-bottom: 2px solid #eae0d9;
+      position: absolute;
+      top: 150px;
+      left: -4.5px;
+      background: linear-gradient(90deg, #888, #555);
+    }
+    .volb {
+      width: 3.5px;
+      height: 50px;
+      border-top: 2px solid #eae0d9;
+      border-bottom: 2px solid #eae0d9;
+      position: absolute;
+      top: 210px;
+      left: -4.5px;
+      background: linear-gradient(90deg, #888, #555);
+    }
+    .lock {
+      width: 3.5px;
+      height: 70px;
+      border-top: 2px solid #eae0d9;
+      border-bottom: 2px solid #eae0d9;
+      position: absolute;
+      top: 192px;
+      right: -4.5px;
+      background: linear-gradient(-90deg, #888, #555);
+    }
+  }
+
+  .screen {
+    width: 270px;
+    height: 590px;
+    background-image: url("../../public/images/ferries-example.png");
+    background-size: cover;
+    border-radius: 47px;
+    position: relative;
+
+    .island {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 0;
+      margin-right: auto;
+      margin-left: auto;
+      width: 90px;
+      height: 25px;
+      background-color: #000;
+      border-radius: 40px;
+
+      .camera {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+        width: 15px;
+        height: 15px;
+        background-color: #111;
+        border-radius: 50%;
+
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background-color: #161a3c;
+        }
+        
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 5px;
+          left: 5px;
+          width: 5px;
+          height: 5px;
+          background: linear-gradient(0, #03344f 0%, #040e27 50%, #3e5191 100%);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+.phoneFront:nth-child(1) .screen {
+    background-image: url("../../public/images/ferries-example.png");
+}
+
+.phoneFront:nth-child(2) .screen {
+    background-image: url("../../public/images/route-options-1.png");
+}
+
+.phoneFront:nth-child(3) .screen {
+    background-image: url("../../public/images/anacortes-cams.png");
 }

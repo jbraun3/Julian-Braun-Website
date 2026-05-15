@@ -7,7 +7,7 @@ export default function HomePage() {
             <p>This is a retro-inspired portfolio website built with React. Use the 
                terminal or file explorer on the left to navigate through my projects 
                and resume. press 'select' to switch between the terminal and file explorer
-               navigation interfaces.Type 'help' in the terminal for a list of commands.</p>
+               navigation interfaces. Type 'help' in the terminal for a list of commands.</p>
         </div>
     );
 }

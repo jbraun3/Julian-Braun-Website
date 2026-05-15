@@ -61,9 +61,9 @@
 }
 
 .wsdot-logo-image {
-    width: 130px; /* Reduced from 200px for better proportion */
+    width: 130px;
     height: auto;
-    max-width: 100%; /* Ensure it doesn't exceed container */
+    max-width: 100%; 
 
     filter:     
     sepia(100%) 

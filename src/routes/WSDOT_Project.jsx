@@ -9,7 +9,7 @@ export default function WSDOT_Project() {
         <div className="wsdot-project-page-container">
             <header className="wsdot-project-header">
                 <div className="logo-and-links">
-                    <img src="../../images/wsdot_logo.png" alt="WSDOT Logo" className="wsdot-logo-image" />
+                    <img src="/images/wsdot_logo.png" alt="WSDOT Logo" className="wsdot-logo-image" />
                     <a href="https://apps.apple.com/us/app/wsdot/id387209224" target="_blank" rel="noopener noreferrer" className="app-store-link">App Store Coming Soon!</a> 
                 </div>
                 <h1>Transportation has never looked this good</h1>
@@ -106,7 +106,7 @@ export default function WSDOT_Project() {
                             that not only meets current needs but also adapts to future changes. This reduces maintenance 
                             overhead and increases app durability.</p>
                             <div className="content-image">
-                                <img src="../public/images/code-example.png" alt="WSDOT tab bar code example" className="content-image-1" />
+                                <img src="/images/code-example.png" alt="WSDOT tab bar code example" className="content-image-1" />
                             </div>
                         <p className="subscript">SwiftUI tabview automatically updates to the newest iOS design standard, 
                             ensuring the app always looks modern without needing a redesign every few years.

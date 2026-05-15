@@ -1,0 +1,129 @@
+.explorer-container{
+    padding: 10px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    box-sizing: border-box;
+    border: solid 5px black;
+
+    aspect-ratio: 1/1;
+    margin: 30px auto -5px;
+    transform: translateY(-5px);
+    background-color: #D8C9FA;
+    color: #2B2B2B;
+}
+
+.explorer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.explorer-off {
+    display: none;
+}
+
+.explorer-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.explorer-controls button {
+    border-radius: 5px;
+    border: #2B2B2B solid 2px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.explorer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: medium;
+    padding: 8px 10px;
+    background-image: linear-gradient(135deg, 
+                    #FBD1E8 10%, 
+                    #D8C9FA 30%, 
+                    #C4F0FD 50%, 
+                    #FAF8B8 70%);
+    border-radius: 10px;
+    border: #2B2B2B solid 2px;
+}
+
+.explorer-header p {
+    margin: 0;
+}
+
+.explorer-path-container {
+    display: flex;
+    align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: small;
+    background-color: white;
+    margin: 5px 0;
+    border: #2B2B2B solid 2px;
+    border-radius: 5px;
+}
+
+.explorer-path-container p {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.explorer-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: #2B2B2B solid 2px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.explorer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    font-size: x-small;
+    cursor: default;
+    padding: 5px;
+    margin: auto;
+    margin-top: 0;
+}
+
+.item-icon.dir {
+    background-image: url("../../public/images/closed-folder.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+
+.item-icon.dir:hover {
+    background-image: url("../../public/images/open-folder.png");
+}
+
+.item-icon.file {
+    background-image: url("../../public/images/document.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+
+.explorer-item span {
+    text-align: center;
+    word-break: break-all;
+}
+
+.explorer-item.selected {
+    background-color: #C4F0FD;
+    border-radius: 5px;
+}

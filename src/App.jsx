@@ -11,10 +11,12 @@ import WSDOT_Project from './routes/WSDOT_Project.jsx';
 import Terminal from './components/Terminal.jsx'
 import SideButtons from './components/SideButtons.jsx';
 import BootSequence from './components/BootSequence.jsx';
+import FileExplorer from './components/FileExplorer.jsx';
 
 export default function App() {
   const [isPowerOn, setIsPowerOn] = useState(false);
   const [isBooted, setIsBooted] = useState(false);
+  const [isTerminal, setIsTerminal] = useState(false);
 
   const isSafari = navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome");
 
@@ -47,12 +49,12 @@ export default function App() {
         <div className="nav-panel">
           <div className="gameboy-base">
             <div className="gameboy-screen">
-              <Terminal isBooted={isBooted} />
+              {isTerminal === true ? <Terminal isBooted={isBooted} /> : <FileExplorer isBooted={isBooted} />}
               <p className="gameboy-title">JulesBoy</p>
             </div>
           
             <div className="gameboy-buttons">
-              {/* Complex nested structure for the 3D D-pad */}
+
               <div className="left">
                 <div className="croix">
                   <div className="line top"></div>
@@ -63,19 +65,16 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Action buttons (B is traditionally first/lower on Gameboy) */}
               <div className="right">
                 <button>B</button>
                 <button>A</button>
               </div>
 
-              {/* Hyphenated class name and added spans for the neon text labels */}
               <div className="small-buttons">
-                <button><span>SELECT</span></button>
+                <button onClick={() => setIsTerminal(!isTerminal)}><span>SELECT</span></button>
                 <button><span>START</span></button>
               </div>
 
-              {/* Your existing sound grid */}
               <div className="sound-grid">
                 <div className="dot t"></div>
                 <div className="dot b"></div>

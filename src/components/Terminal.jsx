@@ -2,64 +2,12 @@ import '../assets/Global.css'
 import '../assets/Terminal.css'
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fileSystem, findNode } from './fileSystem.js';
 
 
 export default function Terminal({ isBooted }) {
     const navigate = useNavigate();
 
-    // Virtual File System Definition
-    const fileSystem = {
-        '~': {
-            type: 'dir',
-            children: {
-                'projects': {
-                    type: 'dir',
-                    children: {
-                        'husky_winter_sports_website.jsx': { 
-                            type: 'file', 
-                            action: () => window.open("https://www.huskywintersports.org/", '_blank'),
-                            desc: "Opening husky_winter_sports_website.jsx..."
-                        },
-                        'wsdot_project.jsx': { 
-                            type: 'file', 
-                            action: () => navigate('/wsdot'),
-                            desc: "Opening WSDOT_Project.jsx..."
-                        }
-                    }
-                },
-                'resume': {
-                    type: 'dir',
-                    children: {
-                        'resume.pdf': { 
-                            type: 'file', 
-                            action: () => window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank'),
-                            desc: "Opening resume.pdf..."
-                        },
-                        'resume_page.jsx': { 
-                            type: 'file', 
-                            action: () => navigate('/resume'),
-                            desc: "Opening resume_page.jsx..."
-                        }
-                    }
-                }
-            }
-        }
-    };
-
-    // Helper to find a node in the VFS from a path array
-    const findNode = (pathArray) => {
-        let current = fileSystem['~'];
-        for (let i = 1; i < pathArray.length; i++) {
-            if (current.children && current.children[pathArray[i]]) {
-                current = current.children[pathArray[i]];
-            } else {
-                return null;
-            }
-        }
-        return current;
-    };
-
-    // Helper to resolve a path string (relative or absolute) into a path array
     const resolvePath = (currentPath, pathStr) => {
         if (!pathStr || pathStr === '.') return currentPath;
         if (pathStr === '~') return ['~'];
@@ -183,7 +131,7 @@ export default function Terminal({ isBooted }) {
                     const node = targetPath ? findNode(targetPath) : null;
                     if (node && node.type === 'file') {
                         currentOutput = node.desc;
-                        node.action();
+                        node.action(navigate);
                     } else if (node && node.type === 'dir') {
                         currentOutput = `open: ${args[0]}: Is a directory`;
                     } else {

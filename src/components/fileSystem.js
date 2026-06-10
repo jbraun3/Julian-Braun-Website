@@ -24,7 +24,7 @@ export const fileSystem = {
                 children: {
                     'resume.pdf': { 
                         type: 'file', 
-                        action: () => window.open('/images/JULIAN_BRAUN_RESUME_N.pdf', '_blank'),
+                        action: () => window.open('/images/JULIAN_BRAUN_RESUME.pdf', '_blank'),
                         desc: "Opening resume.pdf..."
                     },
                     'resume_page.jsx': { 

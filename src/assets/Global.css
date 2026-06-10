@@ -224,7 +224,7 @@ body {
       cursor: pointer;
       font-size: 1.2rem;
       text-align: center;
-      color: #c0c0c0; /* Subtle contrast for A/B text */
+      color: #c0c0c0; 
       padding-top: 1%;
       padding-left: 3%;
       box-sizing: border-box;
@@ -488,7 +488,6 @@ body {
 
 .power-tooltip {
     position: absolute;
-    /* Pushes the tooltip to the left of the button */
     right: 120%; 
     top: 25%;
     transform: translateY(-50%);

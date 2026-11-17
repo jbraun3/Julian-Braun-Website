@@ -1,0 +1,33 @@
+name: Build and deploy to Render
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: 
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint --if-present # skipped if you have no lint script
+      - run: npm test --if-present # skipped if you have no test script
+      - run: npm run build # if this fails, deploy never runs
+
+  deploy:
+    needs: build 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }} 
+        run: curl -fsS -X POST "$DEPLOY_HOOK"

@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fileSystem, findNode } from './fileSystem.js';
+import { findNode } from './fileSystem.js';
 import '../assets/FileExplorer.css';
 
 export default function FileExplorer({ isBooted }) {
@@ -23,7 +23,7 @@ export default function FileExplorer({ isBooted }) {
         return ['C:', 'users', 'julian', ...parts].join('\\');
     };
 
-    const handleItemClick = (name, node) => {
+    const handleItemClick = (name) => {
         setSelected(name);
     };
 
@@ -76,7 +76,7 @@ export default function FileExplorer({ isBooted }) {
                         <div
                             key={name}
                             className={`explorer-item ${selected === name ? 'selected' : ''}`}
-                            onClick={(e) => { e.stopPropagation(); handleItemClick(name, node); }}
+                            onClick={(e) => { e.stopPropagation(); handleItemClick(name); }}
                             onDoubleClick={(e) => { e.stopPropagation(); handleItemDoubleClick(name, node); }}
                         >
                             <span className={`item-icon ${node.type}`}></span>

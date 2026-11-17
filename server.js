@@ -1,10 +1,12 @@
-// Serves the Vite build now; add API routes above the SPA fallback later.
+// Serves the Vite build; add API routes above the SPA fallback later.
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dist = path.join(__dirname, "dist");
+
 const app = express();
-const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), "dist");
 
 app.get("/healthz", (_req, res) => res.send("ok"));
 

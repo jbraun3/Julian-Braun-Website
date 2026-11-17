@@ -2,7 +2,7 @@ import '../assets/Global.css'
 import '../assets/Terminal.css'
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fileSystem, findNode } from './fileSystem.js';
+import { findNode } from './fileSystem.js';
 
 
 export default function Terminal({ isBooted }) {
@@ -77,7 +77,6 @@ export default function Terminal({ isBooted }) {
             const cmd = parts[0].toLowerCase();
             const args = parts.slice(1);
             let currentOutput = "";
-            let nextPathArray = [...currentPathArray];
 
             // general commands
             if (cmd === 'help') {
@@ -107,13 +106,11 @@ export default function Terminal({ isBooted }) {
             // cd handling
             } else if (cmd === 'cd') {
                 if (!args[0] || args[0] === '~') {
-                    nextPathArray = ['~'];
                     setCurrentPathArray(['~']);
                 } else {
                     const targetPath = resolvePath(currentPathArray, args[0]);
                     const node = targetPath ? findNode(targetPath) : null;
                     if (node && node.type === 'dir') {
-                        nextPathArray = targetPath;
                         setCurrentPathArray(targetPath);
                     } else if (node && node.type === 'file') {
                         currentOutput = `cd: ${args[0]}: Not a directory`;

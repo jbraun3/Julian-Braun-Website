@@ -1,0 +1,15 @@
+# Optional: only used if you manage the service as a Render Blueprint.
+# If you set the service up in the dashboard, you can delete this file.
+services:
+  - type: web
+    runtime: node
+    name: portfolio
+    plan: free
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    autoDeployTrigger: off # GitHub Actions triggers deploys via the deploy hook
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

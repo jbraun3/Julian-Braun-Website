@@ -26,4 +26,9 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    // Node files (server + scripts) use Node globals like process
+    files: ['server.js', 'scripts/**/*.js'],
+    languageOptions: { globals: globals.node },
+  },
 ])

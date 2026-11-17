@@ -19,5 +19,5 @@ jobs:
       - name: Check site
         run: node scripts/uptime.js
         env:
-          SITE_URL: https://YOUR-DOMAIN-OR-SITE.onrender.com # ← change this
-          GITHUB_TOKEN: ${{ github.token }} # provided automatically by GitHub
+          SITE_URL: https://julian-braun-website.onrender.com. 
+          GITHUB_TOKEN: ${{ github.token }} 
